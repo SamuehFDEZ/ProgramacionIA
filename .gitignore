@@ -2,3 +2,5 @@ UD3/img/*
 UD5/PracticaIdentificacionDePersonasConMascarilla/dataset_imagenes_mascarilla/test
 UD5/PracticaIdentificacionDePersonasConMascarilla/dataset_imagenes_mascarilla/train
 UD5/PracticaIdentificacionDePersonasConMascarilla/mascarilla_con_mas_imagenes/data/*
+UD5/transferLearningMobileNet/dataset_imagenes_comidas/*
+UD5/transferLearningMobileNet/ejemplos_imagenes_comidas/
