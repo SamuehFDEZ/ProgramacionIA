@@ -1,0 +1,63 @@
+def generar_diccionario(textos, sw, N):
+    cv = CountVectorizer(stop_words = sw, max_features = N)
+    cv.fit_transform(textos)
+    diccionario = cv.vocabulary_
+    diccionario = dict([(palabra, i+2) for i, palabra in enumerate(diccionario)])
+    diccionario['DESC'] = 0
+    diccionario['PAD'] = 1 
+    return diccionario
+
+def procesar_cadena(texto, diccionario, stop_words, T):
+    # Identificar palabras en el texto
+    palabras = re.findall(r'\b\w+\b', texto.lower())
+    palabras = list(filter(lambda x: x not in stop_words, palabras))
+    resultado = [] 
+    for i in range(0, T):
+        if i < len(palabras): 
+            if palabras[i] in diccionario:
+                resultado.append(diccionario[palabras[i]])
+            else:
+                resultado.append(diccionario['DESC'])
+        else:
+            resultado.append(diccionario['PAD'])
+    return np.array(resultado)
+
+
+# Parámetros configurables
+N = 20000  # Número de palabras del diccionario
+T = 100    # Longitud prefijada de la reseña
+EPOCHS = 10
+NEURONAS_CAPA = 128
+
+stop_words=['a', 'about', 'an', 'and', 'as', 'at', 'be', 'because', 'been', 
+    'being', 'by', 'during', 'each', 'for', 'from', 'he', 'he\'d', 'he\'ll',
+    'he\'s', 'her', 'him', 'his', 'how', 'i', 'i\'d', 'i\'ll', 'i\'m', 'i\'ve',
+    'if', 'in', 'into', 'it', 'it\'s', 'its', 'let\'s', 'of', 'or', 'our', 
+    'out', 'over', 'same', 'she', 'she\'d', 'she\'ll', 'she\'s', 'so', 'some'
+    'such', 'than', 'that', 'that\'s', 'the', 'them', 'then', 'there', 'these',
+    'they', 'they\'d', 'they\'ll', 'they\'re', 'they\'ve', 'this', 'those',
+    'through', 'to', 'until', 'very', 'we', 'we\'d', 'we\'ll', 'we\'re', 
+    'we\'ve', 'what', 'what\'s', 'when', 'when\'s', 'where', 'where\'s', 'which',
+    'while', 'who', 'who\'s', 'whom', 'why', 'why\'s', 'with', 'would', 
+    'wouldn\'t', 'you', 'you\'d', 'you\'ll', 'you\'re', 'you\'ve', 'your', 
+    'yours']
+
+
+path = "/kaggle/input/tripadvisor-reviews/tripadvisor_hotel_reviews.csv"
+
+datos = pd.read_csv(path)
+
+# Variable objetivo
+y = datos.iloc[:, -1]
+num_clases = len(y.unique())
+# Codificamos con "one hot" las posibles categorías finales
+y = pd.get_dummies(datos['Rating'], columns=['Rating'])
+
+# Textos de reseñas
+textos = datos['Review']
+X = []
+diccionario = generar_diccionario(textos, stop_words, N)
+for texto in textos:
+    X.append(procesar_cadena(texto, diccionario, stop_words, T))
+# X contendrá las reseñas codificadas y rellenas con la misma longitud
+X = np.array(X)
