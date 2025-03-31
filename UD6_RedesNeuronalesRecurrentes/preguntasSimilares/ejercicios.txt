@@ -1,0 +1,13 @@
+Más de 100 millones de personas visitan el portal de
+preguntas Quora cada mes, por lo que no sorprende que
+muchas personas hagan preguntas similares.
+Varias preguntas con la misma intención pueden hacer que
+quienes buscan información dediquen más tiempo a encontrar la mejor
+respuesta y que quienes escriben sientan que responden a varias versiones de la misma pregunta.
+El reto es construir una red recurrente que, usando word encoding, entrene con el
+dataset proporcionado para aprender a asociar preguntas, o más bien, a detectar que 2
+frases cualesquiera tratan sobre el mismo concepto y se han de considerar como "duplicadas".
+
+Utiliza el dataset "dataset_preguntas_similares" sobre asociaciones entre preguntas.
+En cada línea aparecen los textos de dos preguntas y, al final, un atributo indicando
+(1 o 0) si las dos preguntas tratan sobre el mismo contenido u objetivo final.
