@@ -3,11 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Flask application</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link rel="shortcut icon" href="../static/img/favicon.png" type="image/x-icon">
 </head>
 <body>
-    <h1>Hola {{ nombre }} </h1>
+    <header>
+        <h1>Flask application</h1>
+    </header>
+    <main>
+        <form action="/login" method="POST">
+            <label for="nombre">Nombre: </label><br><br>
+            <input type="text" name="nombre" id="nombre" placeholder="Nombre"><br><br>
+            <label for="contrasenya">Contraseña: </label><br><br>
+            <input type="password" name="contrasenya" id="contrasenya" placeholder="Contraseña"><br><br>
+            <input type="submit" value="Log In"><br>
+
+            {% if mensaje.startswith('Bienvenido') %}
+            <p>Hola {{ nombre }}</p>
+            {% else %}
+            <p>Credenciales incorrectas</p>
+            {% endif %}
+            <span id="correcto">{{ mensaje }}</span>
+        </form>
+    </main>
+    <footer>
+
+    </footer>
 </body>
 </html>
