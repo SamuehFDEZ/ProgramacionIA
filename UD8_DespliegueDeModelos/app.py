@@ -1,21 +1,21 @@
-from flask import Flask, render_template, request, abort, redirect
-from flask_wtf import FlaskForm
-from wtforms import StringField, EmailField, SubmitField
-from wtforms.validators import DataRequired, Email
+from flask import Flask, render_template, request
 app = Flask(__name__, template_folder='templates')
+
+@app.errorhandler(404)
+def notFound():
+    return render_template('404.html'), 404
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    mensaje = ""
     if request.method == 'POST':
-        nombre = 'Samuel'
-        contrasenya = '123456'
-        if (request.form.get('nombre') == nombre and
-                request.form.get('contrasenya') == contrasenya):
-            mensaje = "<p>Bienvenido, Samuel.</p>"
-        else:
-            mensaje = "<p>Credenciales incorrectas.</p>"
-    return render_template("index.html", mensaje=mensaje, nombre=nombre)
+        usuario = request.form.get('nombre')
+        clave = request.form.get('contrasenya')
+
+        if usuario == 'Samuel' and clave == '123':
+            return render_template('index.html', tUsuario=usuario, tClave=clave)
+
+        return render_template('index.html', tUsuario=usuario, tClave=None)  # Falló login
+    return render_template('index.html', tUsuario=None, tClave=None)  # GET
 
 
 if __name__ == "__main__":

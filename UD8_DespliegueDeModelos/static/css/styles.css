@@ -1,4 +1,62 @@
 body {
     font-family: 'Arial Narrow', sans-serif;
+    background-color: #171717;
 }
+
+.github{
+    width: 100%;
+    height: auto;
+    margin-top: 5lh;
+}
+
+
+form {
+    background-color: #ffffff;
+    width: 20%;
+    height: auto;
+    margin-top: 8lh;
+    margin-left: 28lh;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+form label{
+    position: relative;
+    font-weight: bold;
+    right: 19%;
+}
+
+label[ for = "nombre"]{
+    position: relative;
+    font-weight: bold;
+    right: 23%;
+}
+
+input{
+    width: 65%;
+    height: 30px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    border: 1px solid #000000;
+    &:focus{
+        transform: scale(1.1);
+        color: #000000;
+    }
+}
+
+input[ type = "submit"]{
+    width: 30%;
+    height: 30px;
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    &:hover{
+        background-color: #ffffff;
+        color: #000000;
+        border: 1px solid #000000;
+    }
+
+}
+
 
