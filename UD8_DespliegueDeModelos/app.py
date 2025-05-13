@@ -8,6 +8,10 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    diccionario = {
+        'nombre': 'Samuel',
+        'contrasenya': '123'
+    }
     tUsuario = None
     tClave = None
 
@@ -15,7 +19,7 @@ def login():
         tUsuario = request.form.get('nombre')
         clave = request.form.get('contrasenya')
 
-        if tUsuario == 'Samuel' and clave == '123':
+        if tUsuario == diccionario['nombre'] and clave == diccionario['contrasenya']:
             tClave = clave  # Solo se asigna si es válida
 
     return render_template('index.html', tUsuario=tUsuario, tClave=tClave)
