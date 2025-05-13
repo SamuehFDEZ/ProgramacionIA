@@ -9,22 +9,29 @@
     <link rel="shortcut icon" href="../static/img/favicon.png" type="image/x-icon">
 </head>
 <body>
+    <header>
+
+    </header>
     <main>
-        <form action="/login" method="POST">
-            <h1>Iniciar Sesión</h1>
+        <form action="/login" id="formLog"  method="POST">
+            <h1>Log in</h1>
             <label for="nombre">Nombre: </label><br><br>
             <input type="text" name="nombre" id="nombre" placeholder="Nombre"><br><br>
             <label for="contrasenya">Contraseña: </label><br><br>
             <input type="password" name="contrasenya" id="contrasenya" placeholder="Contraseña"><br><br>
-            <input type="submit" id="login" value="Iniciar Sesión"><br>
-            <div>
+            <input type="submit" id="login" value="Log In"><br>
+            <div id="mensaje" class="oculto">
                 {% if tUsuario is not none and tClave %}
-                <span class="mensaje-exito">Acceso permitido: bienvenido {{ tUsuario }}</span>
+                <span>Acceso permitido: bienvenido {{ tUsuario }}</span>
                 {% elif tUsuario %}
-                <span class="mensaje-error">Acceso denegado a {{ tUsuario }}</span>
+                    <span>Acceso denegado a {{ tUsuario }}</span>
                 {% endif %}
             </div>
+
         </form>
     </main>
+    <footer>
+
+    </footer>
 </body>
 </html>
