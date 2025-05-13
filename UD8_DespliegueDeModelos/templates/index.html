@@ -14,19 +14,17 @@
     </header>
     <main>
         <form action="/login"  method="POST">
-            <h1>Login</h1>
+            <h1>Log in</h1>
             <label for="nombre">Nombre: </label><br><br>
             <input type="text" name="nombre" id="nombre" placeholder="Nombre"><br><br>
             <label for="contrasenya">Contraseña: </label><br><br>
             <input type="password" name="contrasenya" id="contrasenya" placeholder="Contraseña"><br><br>
             <input type="submit" value="Log In"><br>
-            <div>
-                {% if tUsuario is not none and tClave %}
-                    <p style="color: green;">Acceso permitido: bienvenido {{ tUsuario }}</p>
-                {% elif tUsuario %}
-                    <p style="color: red;">Acceso denegado a {{ tUsuario }}</p>
-                {% endif %}
-            </div>
+            {% if tUsuario is not none and tClave %}
+                <span style="color: green;">Acceso permitido: bienvenido {{ tUsuario }}</span>
+            {% elif tUsuario %}
+                <span style="color: red;">Acceso denegado a {{ tUsuario }}</span>
+            {% endif %}
         </form>
     </main>
     <footer>

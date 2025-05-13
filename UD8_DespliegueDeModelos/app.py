@@ -1,10 +1,6 @@
 from flask import Flask, render_template, request
 app = Flask(__name__, template_folder='templates')
 
-@app.errorhandler(404)
-def notFound():
-    return render_template('404.html'), 404
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
