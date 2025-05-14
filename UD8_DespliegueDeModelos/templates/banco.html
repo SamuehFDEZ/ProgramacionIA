@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Análisis Bancario</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+    <link rel="shortcut icon" href="../static/img/favicon.png" type="image/x-icon">
+</head>
+<body>
+ <h1>Predicción de aprobación de prestamo crediticio</h1>
+ <form action="/" method="post">
+  <label for="income">Ingresos</label><br><br>
+  <input type="text" name="income" id="income"><br><br>
+  <label for="amount">Cantidad</label><br><br>
+  <input type="text" name="amount" id="amount"><br><br>
+  <label for="int_rate">Tasa de interés de préstamo</label><br><br>
+  <input type="text" name="int_rate" id="int_rate"><br><br>
+  <label for="percent_income">Monto del préstamo como un porcentaje del ingreso anual</label><br><br>
+  <input type="text" name="percent_income" id="percent_income"><br><br>
+  <label for="previous_loans">Préstamos anteriores</label><br><br>
+  <input type="text" name="previous_loans" id="previous_loans"><br><br>
+  <label for="ownership_MORTGAGE">Hipoteca de propiedad</label><br><br>
+  <input type="text" name="ownership_MORTGAGE" id="ownership_MORTGAGE"><br><br>
+  <label for="ownership_RENT">Alquiler de propiedad</label><br><br>
+  <input type="text" name="ownership_RENT" id="ownership_RENT"><br><br>
+  <input type="submit" value="Predecir" id="enviar">
+ </form>
+</body>
+</html>
