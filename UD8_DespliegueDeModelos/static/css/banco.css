@@ -1,0 +1,20 @@
+:root {
+  --bbva-main: #14549C;
+  --bbva-main2: #608AA0;
+  --bbva-main3: #86A5A2;
+  --bbva-main4: #ACBFA4;
+  --bbva-main5: #1E90FF;
+  --color-secundario: #124C8E;
+  --color-acento: #104581;
+  --color-fondo: #0F3F75;
+  --color-texto: #0E396A;
+}
+
+
+body {
+    background-color: var(--bbva-main);
+}
+
+ul {
+  color: red;
+}

@@ -6,11 +6,12 @@
     <title>Análisis Bancario</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
     <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
-    <link rel="shortcut icon" href="../static/img/favicon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/img/bbva.jpg" type="image/x-icon">
 </head>
 <body>
  <h1>Predicción de aprobación de prestamo crediticio</h1>
  <form action="/" method="post">
+  {{ form.hidden_tag() }}
   <label for="income">Ingresos</label><br><br>
   <input type="text" name="income" id="income"><br><br>
   <label for="amount">Cantidad</label><br><br>
@@ -26,6 +27,15 @@
   <label for="ownership_RENT">Alquiler de propiedad</label><br><br>
   <input type="text" name="ownership_RENT" id="ownership_RENT"><br><br>
   <input type="submit" value="Predecir" id="enviar">
+  {% if form.errors %}
+   <ul>
+    {% for campo, errores in form.errors.items() %}
+     {% for error in errores %}
+      <li>{{ campo }}: {{ error }}</li>
+     {% endfor %}
+    {% endfor %}
+   </ul>
+  {% endif %}
  </form>
 </body>
 </html>
