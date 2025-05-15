@@ -7,26 +7,28 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
     <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
     <link rel="shortcut icon" href="../static/img/bbva.jpg" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+          rel="stylesheet">
 </head>
 <body>
  <h1>Predicción de aprobación de prestamo crediticio</h1>
  <form action="/" method="post">
   {{ form.hidden_tag() }}
-  <label for="income">Ingresos</label><br><br>
-  <input type="text" name="income" id="income"><br><br>
-  <label for="amount">Cantidad</label><br><br>
-  <input type="text" name="amount" id="amount"><br><br>
-  <label for="int_rate">Tasa de interés de préstamo</label><br><br>
-  <input type="text" name="int_rate" id="int_rate"><br><br>
-  <label for="percent_income">Monto del préstamo como un porcentaje del ingreso anual</label><br><br>
-  <input type="text" name="percent_income" id="percent_income"><br><br>
-  <label for="previous_loans">Préstamos anteriores</label><br><br>
-  <input type="text" name="previous_loans" id="previous_loans"><br><br>
-  <label for="ownership_MORTGAGE">Hipoteca de propiedad</label><br><br>
-  <input type="text" name="ownership_MORTGAGE" id="ownership_MORTGAGE"><br><br>
-  <label for="ownership_RENT">Alquiler de propiedad</label><br><br>
-  <input type="text" name="ownership_RENT" id="ownership_RENT"><br><br>
-  <input type="submit" value="Predecir" id="enviar">
+  <label for="ingresos">Ingresos</label><br><br>
+  {{ form.ingresos() }}<br><br>
+  <label for="cantidad">Cantidad</label><br><br>
+  {{ form.cantidad() }}<br><br>
+  <label for="tasaIntPres">Tasa de interés de préstamo</label><br><br>
+  {{ form.tasaIntPres() }}<br><br>
+  <label for="mppIngresp">Monto del préstamo como porcentaje del ingreso anual</label><br><br>
+  {{ form.mppIngresp() }}<br><br>
+  <label for="prestAnt">Préstamos anteriores</label><br><br>
+  {{ form.prestAnt() }}<br><br>
+  <label for="hipoPro">Hipoteca de propiedad</label><br><br>
+  {{ form.hipoPro() }}<br><br>
+  <label for="alqPro">Alquiler de propiedad</label><br><br>
+  {{ form.alqPro() }}<br><br>
+  {{ form.enviar() }}
   {% if form.errors %}
    <ul>
     {% for campo, errores in form.errors.items() %}
@@ -36,6 +38,7 @@
     {% endfor %}
    </ul>
   {% endif %}
+  <p>{{ resultado }} </p>
  </form>
 </body>
 </html>

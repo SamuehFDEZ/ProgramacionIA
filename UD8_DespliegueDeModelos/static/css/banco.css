@@ -1,20 +1,76 @@
 :root {
-  --bbva-main: #14549C;
-  --bbva-main2: #608AA0;
-  --bbva-main3: #86A5A2;
-  --bbva-main4: #ACBFA4;
-  --bbva-main5: #1E90FF;
-  --color-secundario: #124C8E;
+  --bbva-main: #072146;
+  --bbva-font-color: #fcfefd;
+  --bbva-form: #2d758d;
   --color-acento: #104581;
   --color-fondo: #0F3F75;
-  --color-texto: #0E396A;
+  --color-texto: #0b294f;
 }
 
 
 body {
-    background-color: var(--bbva-main);
+    font-family: 'Poppins', sans-serif;
+    background: var(--bbva-main);
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    color: var(--bbva-font-color);
+    margin-top: 30px;
+}
+
+form {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background: var(--bbva-form);
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: var(--bbva-font-color);
+}
+
+input[type="text"],
+input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: var(--bbva-font-color);
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
 ul {
-  color: red;
+    color: red;
+    list-style-type: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+p {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--bbva-font-color);
 }
