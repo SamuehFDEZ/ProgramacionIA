@@ -14,21 +14,39 @@
  <h1>Predicción de aprobación de prestamo crediticio</h1>
  <form action="/" method="post">
   {{ form.hidden_tag() }}
-  <label for="ingresos">Ingresos</label><br><br>
-  {{ form.ingresos() }}<br><br>
-  <label for="cantidad">Cantidad</label><br><br>
-  {{ form.cantidad() }}<br><br>
-  <label for="tasaIntPres">Tasa de interés de préstamo</label><br><br>
-  {{ form.tasaIntPres() }}<br><br>
-  <label for="mppIngresp">Monto del préstamo como porcentaje del ingreso anual</label><br><br>
-  {{ form.mppIngresp() }}<br><br>
-  <label for="prestAnt">Préstamos anteriores</label><br><br>
-  {{ form.prestAnt() }}<br><br>
-  <label for="hipoPro">Hipoteca de propiedad</label><br><br>
-  {{ form.hipoPro() }}<br><br>
-  <label for="alqPro">Alquiler de propiedad</label><br><br>
-  {{ form.alqPro() }}<br><br>
-  {{ form.enviar() }}
+
+  <div>
+    <label>Ingresos</label>
+    {{ form.ingresos() }}
+  </div>
+  <div>
+    <label>Cantidad</label>
+    {{ form.cantidad() }}
+  </div>
+  <div>
+    <label>Tasa de interés</label>
+    {{ form.tasaIntPres() }}
+  </div>
+  <div>
+    <label>Préstamo anual</label>
+    {{ form.mppIngresp() }}
+  </div>
+  <div>
+    <label>Préstamos anteriores</label>
+    {{ form.prestAnt() }}
+  </div>
+  <div>
+    <label>Hipoteca</label>
+    {{ form.hipoPro() }}
+  </div>
+  <div>
+    <label>Alquiler</label>
+    {{ form.alqPro() }}
+  </div>
+  <div>
+    {{ form.enviar() }}
+  </div>
+
   {% if form.errors %}
    <ul>
     {% for campo, errores in form.errors.items() %}
@@ -38,7 +56,12 @@
     {% endfor %}
    </ul>
   {% endif %}
-  <p>{{ resultado }} </p>
- </form>
+
+  {% if resultado == "Aprobado" %}
+  <span class="aprobado">{{ resultado }} </span>
+  {% else %}
+  <span class="rechazado">{{ resultado }} </span>
+  {% endif %}
+</form>
 </body>
 </html>
