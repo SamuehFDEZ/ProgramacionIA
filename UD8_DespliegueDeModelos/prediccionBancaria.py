@@ -1,6 +1,6 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from flask_wtf.csrf import CSRFProtect
 import joblib
@@ -8,10 +8,11 @@ import numpy as np
 
 modelo = joblib.load('banco.joblib')
 scaler = joblib.load('scaler.pkl')
-
+encoder = joblib.load('encoder.joblib')
 app = Flask(__name__, template_folder='templates')
 app.secret_key = 'clave_secreta'  # Requisito para CSRF
 csrf = CSRFProtect(app)
+
 
 class BbvaForm(FlaskForm):
     ingresos = StringField('income', validators=[DataRequired()],
@@ -22,14 +23,17 @@ class BbvaForm(FlaskForm):
                               render_kw={"placeholder": "5.5 - 13.0 - 20.0"})
     mppIngresp = StringField('percent_income', validators=[DataRequired()],
                              render_kw={"placeholder": "15.0, 30.0, 45.0"})
-    prestAnt = StringField('previous_loans', validators=[DataRequired()],
-                           render_kw={"placeholder": "0 = sin impagos, 1 = con impagos"})
-    hipoPro = StringField('ownership_MORTGAGE', validators=[DataRequired()],
-                          render_kw={"placeholder": "0 = renta, 1 = propio, 2 = hipoteca"})
-    alqPro = StringField('ownership_RENT', validators=[DataRequired()],
-                         render_kw={"placeholder": "0 = no tiene, 1 = tiene alquiler"})
+    prestAnt = SelectField('previous_loans', choices=[('0', 'Sin impagos'),
+                                                      ('1', 'Con impagos')],
+                           validators=[DataRequired()])
+    hipoPro = SelectField('ownership_MORTGAGE', choices=[('0', 'Renta'),
+                                                         ('1', 'Propio'),
+                                                         ('2', 'Hipoteca')],
+                          validators=[DataRequired()])
+    alqPro = SelectField('ownership_RENT', choices=[('0', 'No tiene'),
+                                                    ('1', 'Tiene alquiler')],
+                         validators=[DataRequired()])
     enviar = SubmitField('Enviar')
-
 
 
 @app.route('/', methods=['GET','POST'])
@@ -37,20 +41,32 @@ def procesar():
     try:
         form = BbvaForm()
         if form.validate_on_submit():
+            # Variables numéricas
             ingresosFloat = float(form.ingresos.data)
             cantidadFloat = float(form.cantidad.data)
             tasaIntPresFloat = float(form.tasaIntPres.data)
             mppIngrespFloat = float(form.mppIngresp.data)
-            prestAntFloat = float(form.prestAnt.data)
-            hipoProFloat = float(form.hipoPro.data)
-            alqProFloat = float(form.alqPro.data)
 
-            datos = np.array([[ingresosFloat, cantidadFloat,tasaIntPresFloat
-                                          ,mppIngrespFloat,prestAntFloat,hipoProFloat
-                                          ,alqProFloat]])
-            datos_escalados = scaler.transform(datos)
+            # Variables categóricas como texto (si fueron codificadas con strings)
+            prestAnt = form.prestAnt.data  # string tipo '0' o '1'
+            hipoPro = form.hipoPro.data
+            alqPro = form.alqPro.data
+
+            # Construir arrays para encoder y scaler
+            # Asumiendo que el encoder espera [['0', '2']] (strings)
+            datos_cat = np.array([[hipoPro, alqPro]])
+            datos_cat_encoded = encoder.fit_transform(datos_cat)
+
+            datos_num = np.array([[ingresosFloat, cantidadFloat, tasaIntPresFloat,
+                                   mppIngrespFloat, float(prestAnt)]])  # prestAnt numérico
+
+            # Concatenar numéricas + codificadas
+            datos_finales = np.hstack((datos_num, datos_cat_encoded))
+
+            # Escalar (si el scaler fue ajustado después del encoder)
+            datos_escalados = scaler.transform(datos_finales)
+
             prediccion = modelo.predict(datos_escalados)
-
             resultado = "Aprobado" if prediccion[0] == 1 else "Rechazado"
 
             return render_template('banco.html', form=form, resultado=resultado)

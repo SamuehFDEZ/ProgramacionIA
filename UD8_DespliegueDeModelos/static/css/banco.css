@@ -52,7 +52,7 @@ input[type="text"] {
 }
 
 input[type="submit"] {
-    margin: 29px 40px 0 0;
+    margin: 34px 40px 0 0;
     padding: 10px;
     width: 100%;
     background-color: #007bff;
@@ -95,4 +95,13 @@ ul {
 input::placeholder {
     font-size: 11px;
     color: var(--bbva-main);
+}
+
+select {
+    width: 100%;
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
 }
