@@ -2,7 +2,7 @@
     --bbva-main: #072146;
     --bbva-font-color: #eaf6ff; /* Color claro para fuentes */
     --bbva-form: #2d758d;
-    --color-acento: #104581;
+    --color-acento: #ff0000;
     --color-fondo: #0F3F75;
     --color-texto: #0b294f;
     --bbva-font-color-rechazado: #e52a2a;
@@ -95,6 +95,50 @@ ul {
 input::placeholder {
     font-size: 11px;
     color: var(--bbva-main);
+    font-weight: bold;
+}
+
+
+.custom-select-container {
+    position: relative;
+    width: 100%;
+}
+
+
+.custom-select {
+    width: 100%;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 5px;
+    position: relative;
+}
+
+.selected-option {
+    padding: 5px;
+    background-color: white;
+    color: #0d252d;
+    border-radius: 4px;
+}
+
+.custom-options {
+    display: none;
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    z-index: 10;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 0 0 4px 4px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.custom-option {
+    padding: 8px;
+    color: white;
+    background-color: var(--bbva-main);
+    transition: background-color 0.2s;
 }
 
 select {
@@ -103,5 +147,5 @@ select {
     margin: 5px 0;
     border: 1px solid #ccc;
     border-radius: 4px;
-    font-size: 16px;
+    font-size: 11px;
 }

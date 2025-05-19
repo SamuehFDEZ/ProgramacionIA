@@ -1,10 +1,67 @@
-window.onload = () => {
-    let options = document.getElementsByTagName("option");
-    for (const option of options) {
-        option.style.backgroundColor = "#072146";
-        option.style.color = "#eaf6ff";
-        option.addEventListener("mouseover", ()=>{
-            option.style.backgroundColor = "#007bff";
-        });
+/*window.onload = () => {
+    const selects = document.querySelectorAll("select > option");
+    for (let i = 0; i < selects.length; i++) {
+        selects[i].style.backgroundColor = "#072146";
+        selects[i].style.color = "#eaf6ff";
+        selects[i].classList.add("miClase");
     }
-}
+}*/
+
+window.onload = () => {
+    const selects = document.querySelectorAll("select");
+
+    selects.forEach((select) => {
+        // Ocultar el select original pero mantenerlo funcional
+        select.style.display = "none";
+
+        // Crear contenedor wrapper
+        const wrapper = document.createElement("div");
+        wrapper.className = "custom-select";
+
+        // Crear contenedor para la opción seleccionada
+        const selected = document.createElement("div");
+        selected.className = "selected-option";
+        selected.textContent = select.options[select.selectedIndex]?.text || "Selecciona una opción";
+
+        // Crear lista de opciones
+        const optionsBox = document.createElement("div");
+        optionsBox.className = "custom-options";
+
+        Array.from(select.options).forEach(option => {
+            const opt = document.createElement("div");
+            opt.className = "custom-option";
+            opt.textContent = option.textContent;
+
+            opt.addEventListener("mouseover", () => {
+                opt.style.backgroundColor = "#1882A8";
+                opt.style.color = "#fff";
+            });
+
+            opt.addEventListener("mouseout", () => {
+                opt.style.backgroundColor = "";
+                opt.style.color = "";
+            });
+
+            opt.addEventListener("click", () => {
+                selected.textContent = option.textContent;
+                select.value = option.value;
+                optionsBox.style.display = "none";
+            });
+
+            optionsBox.appendChild(opt);
+        });
+
+        // Toggle de apertura/cierre
+        selected.addEventListener("click", () => {
+            optionsBox.style.display = optionsBox.style.display === "block" ? "none" : "block";
+        });
+
+        // Insertar componentes
+        wrapper.appendChild(selected);
+        wrapper.appendChild(optionsBox);
+
+        // Insertar después del select original
+        select.parentElement.insertBefore(wrapper, select.nextSibling);
+    });
+};
+

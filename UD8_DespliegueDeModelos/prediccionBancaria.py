@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
+from openpyxl.styles.builtins import title
 from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import DataRequired
 from flask_wtf.csrf import CSRFProtect
@@ -31,8 +32,7 @@ class BbvaForm(FlaskForm):
                                                          ('2', 'Hipoteca')],
                           validators=[DataRequired()])
     alqPro = SelectField('ownership_RENT', choices=[('0', 'No tiene'),
-                                                    ('1', 'Tiene alquiler')],
-                         validators=[DataRequired()])
+                                                    ('1', 'Tiene alquiler')], validators=[DataRequired()])
     enviar = SubmitField('Enviar')
 
 
