@@ -1,13 +1,9 @@
-/*window.onload = () => {
-    const selects = document.querySelectorAll("select > option");
-    for (let i = 0; i < selects.length; i++) {
-        selects[i].style.backgroundColor = "#072146";
-        selects[i].style.color = "#eaf6ff";
-        selects[i].classList.add("miClase");
-    }
-}*/
-
 window.onload = () => {
+    const mensaje = document.querySelector(".mensaje");
+    if (mensaje && mensaje.textContent.trim() !== "") {
+        mensaje.style.display = "block";
+    }
+
     const selects = document.querySelectorAll("select");
 
     selects.forEach((select) => {
@@ -64,4 +60,3 @@ window.onload = () => {
         select.parentElement.insertBefore(wrapper, select.nextSibling);
     });
 };
-

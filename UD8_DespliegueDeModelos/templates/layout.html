@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/logo-bbva.webp') }}" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+{% endblock %}
+</head>
+<body>
+    {% block header %}
+        <header class="header"></header>
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}
+    <footer class="footer bg-light py-3 mt-4">
+        <div class="container text-center">
+            <span class="text-muted">© 2025 BBVA | Flask App</span>
+        </div>
+    </footer>
+    {% endblock %}
+</body>
+</html>

@@ -1,29 +1,33 @@
+# Carga de librerias
 from flask import Flask, render_template
 from flask_wtf import FlaskForm
-from openpyxl.styles.builtins import title
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import SubmitField, SelectField, FloatField
 from wtforms.validators import DataRequired
 from flask_wtf.csrf import CSRFProtect
 import joblib
 import numpy as np
 
+# Carga de modelo scaler y encoder
 modelo = joblib.load('banco.joblib')
 scaler = joblib.load('scaler.pkl')
 encoder = joblib.load('encoder.joblib')
+
+# Configuración basica de app flask
 app = Flask(__name__, template_folder='templates')
 app.secret_key = 'clave_secreta'  # Requisito para CSRF
 csrf = CSRFProtect(app)
 
-
+# form de wtf
 class BbvaForm(FlaskForm):
-    ingresos = StringField('income', validators=[DataRequired()],
-                           render_kw={"placeholder": "15.000 – 150.000"})
-    cantidad = StringField('amount', validators=[DataRequired()],
-                           render_kw={"placeholder": "1.000 – 100.000"})
-    tasaIntPres = StringField('int_rate', validators=[DataRequired()],
+    ingresos = FloatField('income', validators=[DataRequired()],
+                           render_kw={"placeholder": "15.000 - 150.000"})
+    cantidad = FloatField('amount', validators=[DataRequired()],
+                           render_kw={"placeholder": "1.000 - 100.000"})
+    tasaIntPres = FloatField('int_rate', validators=[DataRequired()],
                               render_kw={"placeholder": "5.5 - 13.0 - 20.0"})
-    mppIngresp = StringField('percent_income', validators=[DataRequired()],
-                             render_kw={"placeholder": "15.0, 30.0, 45.0"})
+    mppIngresp = FloatField('percent_income', validators=[DataRequired()],
+                             render_kw={"placeholder": "15.0 - 30.0 - 45.0"})
+
     prestAnt = SelectField('previous_loans', choices=[('0', 'Sin impagos'),
                                                       ('1', 'Con impagos')],
                            validators=[DataRequired()])
@@ -35,7 +39,7 @@ class BbvaForm(FlaskForm):
                                                     ('1', 'Tiene alquiler')], validators=[DataRequired()])
     enviar = SubmitField('Enviar')
 
-
+# ruta del form y app
 @app.route('/', methods=['GET','POST'])
 def procesar():
     try:
@@ -73,7 +77,6 @@ def procesar():
         return render_template('banco.html', form=form)
     except Exception as e:
         return f"Error en la predicción: {str(e)}"
-
 
 if __name__ == "__main__":
     app.run(debug=True)

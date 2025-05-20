@@ -6,62 +6,75 @@
     <title>Análisis Bancario</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
     <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
-    <link rel="shortcut icon" href="../static/img/bbva.jpg" type="image/x-icon">
+    <link rel="shortcut icon" href="../static/img/logo-bbva.webp" type="image/x-icon">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
           rel="stylesheet">
 </head>
 <body>
- <h1>Predicción de aprobación de prestamo crediticio</h1>
- <form action="/" method="post">
-  {{ form.hidden_tag() }}
+    {% extends "layout.html" %}
 
-  <div>
-    <label>Ingresos</label>
-    {{ form.ingresos() }}
-  </div>
-  <div>
-    <label>Cantidad</label>
-    {{ form.cantidad() }}
-  </div>
-  <div>
-    <label>Tasa de interés</label>
-    {{ form.tasaIntPres() }}
-  </div>
-  <div>
-    <label>Préstamo anual</label>
-    {{ form.mppIngresp() }}
-  </div>
-  <div>
-    <label>Préstamos anteriores</label>
-    {{ form.prestAnt() }}
-  </div>
-  <div>
-    <label>Hipoteca</label>
-    {{ form.hipoPro(class_="hipo") }}
-  </div>
-  <div>
-    <label>Alquiler</label>
-    {{ form.alqPro() }}
-  </div>
-  <div>
-    {{ form.enviar() }}
-  </div>
+    {% block content %}
+    <div class="container mt-5">
+        <h1 class="mb-4">Predicción de aprobación de préstamo crediticio</h1>
+        <form action="/" method="post">
+            {{ form.hidden_tag() }}
 
-  {% if form.errors %}
-   <ul>
-    {% for campo, errores in form.errors.items() %}
-     {% for error in errores %}
-      <li>{{ campo }}: {{ error }}</li>
-     {% endfor %}
-    {% endfor %}
-   </ul>
-  {% endif %}
+            <div class="mb-3">
+                <label class="form-label">Ingresos</label>
+                {{ form.ingresos(class_="form-control") }}
+            </div>
 
-  {% if resultado == "Aprobado" %}
-  <span class="aprobado">{{ resultado }} </span>
-  {% else %}
-  <span class="rechazado">{{ resultado }} </span>
-  {% endif %}
-</form>
+            <div class="mb-3">
+                <label class="form-label">Cantidad</label>
+                {{ form.cantidad(class_="form-control") }}
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Tasa de interés</label>
+                {{ form.tasaIntPres(class_="form-control") }}
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Préstamo anual</label>
+                {{ form.mppIngresp(class_="form-control") }}
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Préstamos anteriores</label>
+                {{ form.prestAnt(class_="form-select") }}
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Hipoteca</label>
+                {{ form.hipoPro(class_="form-select") }}
+
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Alquiler</label>
+                {{ form.alqPro(class_="form-select") }}
+
+            </div>
+            <div class="mb-3">
+                {{ form.enviar(class_="btn btn-primary") }}
+            </div>
+
+            {% if form.errors %}
+                <div class="alert alert-danger">
+                    <ul>
+                    {% for campo, errores in form.errors.items() %}
+                        {% for error in errores %}
+                            <li>{{ campo }}: {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+          {% if resultado %}
+              <span class="mensaje {{ 'aprobado' if resultado == 'Aprobado' else 'rechazado' }}">
+                  {{ resultado }}
+              </span>
+          {% endif %}
+        </form>
+    </div>
+    {% endblock %}
 </body>
 </html>
