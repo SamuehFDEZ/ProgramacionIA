@@ -12,20 +12,20 @@ window.onload = () => {
 
         // Crear contenedor wrapper
         const wrapper = document.createElement("div");
-        wrapper.className = "custom-select";
+        wrapper.classList.add("custom-select");
 
         // Crear contenedor para la opción seleccionada
         const selected = document.createElement("div");
-        selected.className = "selected-option";
+        selected.classList.add("selected-option");
         selected.textContent = select.options[select.selectedIndex]?.text || "Selecciona una opción";
 
         // Crear lista de opciones
         const optionsBox = document.createElement("div");
-        optionsBox.className = "custom-options";
+        optionsBox.classList.add("custom-options");
 
         Array.from(select.options).forEach(option => {
             const opt = document.createElement("div");
-            opt.className = "custom-option";
+            opt.classList.add("custom-option");
             opt.textContent = option.textContent;
 
             opt.addEventListener("mouseover", () => {
